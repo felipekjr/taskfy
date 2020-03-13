@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="mb-o">
+    <div id="app">
         <div class="row bg-secondary p-5">
             <div class="container">
                 <div class="col-12 d-flex flex-column justify-content-center align-items-center">
@@ -9,14 +9,12 @@
                     </form>
                 </div>
             </div>
-
         </div>
-
-            <div class="col-4">
-                    <task-list v-for="taskList in taskLists" v-bind:key="taskList.id" v-bind:title="taskList.title"
-                    ></task-list>
+        <div class="row">
+            <div class="col-4 mb-4" style="padding-left: 30px; padding-right: 30px" v-for="(taskList, index) in taskLists" :key="index">
+                <task-list v-bind:title="taskList.title" ></task-list>
             </div>
-
+        </div>
     </div>
 </template>
 
@@ -46,6 +44,6 @@
 
 <style lang="scss">
     #app {
-
+        overflow-x: hidden;
     }
 </style>
