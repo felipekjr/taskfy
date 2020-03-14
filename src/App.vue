@@ -1,18 +1,22 @@
 <template>
     <div id="app">
-        <div class="row bg-secondary p-5">
+        <div class="row bg-secondary p-5 mb-5">
             <div class="container">
                 <div class="col-12 d-flex flex-column justify-content-center align-items-center">
-                    <h1 class="text-success display-1">Minhas Tarefas</h1>
-                    <form class="col-12" v-on:submit.prevent="createList(listTitle)">
-                        <input aria-describedby="addon-right addon-left" placeholder="Regular" v-model="listTitle" class="form-control">
+                    <h1 class="text-primary display-1">Minhas Tarefas</h1>
+                    <form class="col-12" v-on:submit.prevent="createList(boardTitle)">
+                        <input aria-describedby="addon-right addon-left" placeholder="Título da prancheta" v-model="boardTitle" class="form-control">
                     </form>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-4 mb-4" style="padding-left: 30px; padding-right: 30px" v-for="(taskList, index) in taskLists" :key="index">
-                <task-list v-bind:title="taskList.title" ></task-list>
+            <div class="col-4 mb-4" style="padding-left: 30px; padding-right: 30px" v-for="(board, index) in boards" :key="index">
+                <task-list
+                        :title="board.title"
+                        :tasks="board.tasks"
+                        :author="board.author"
+                ></task-list>
             </div>
         </div>
     </div>
@@ -28,22 +32,31 @@
         },
         data() {
             return {
-                taskTitle: '',
-                listTitle: '',
-                taskLists: []
+                boardTitle: '',
+                boards: []
             }
         },
         methods: {
-            createList(listTitle) {
-                this.taskLists.push({id: this.taskLists.length + 1, title: listTitle});
-                this.listTitle = '';
+            createList(boardTitle) {
+                this.boards.push(
+                    {
+                        title: boardTitle,
+                        tasks: [],
+                        author: {id: 1, name: 'Felipe Rodrigues'}
+                    }
+                );
+                this.boardTitle = '';
             }
         }
     }
 </script>
 
 <style lang="scss">
+    @import "assets/vendor/nucleo/css/nucleo.css";
     #app {
         overflow-x: hidden;
+    }
+    .cursor-pointer{
+        cursor: pointer;
     }
 </style>
